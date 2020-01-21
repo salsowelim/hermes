@@ -26,3 +26,4 @@ require (
 )
 
 replace gopkg.in/russross/blackfriday.v2 v2.0.1 => github.com/russross/blackfriday/v2 v2.0.1
+replace github.com/matcornic/hermes/v2 v2.0.2 => github.com/salsowelim/hermes/v2 v2.0.2
