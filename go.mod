@@ -11,6 +11,7 @@ require (
 	github.com/imdario/mergo v0.3.6
 	github.com/jaytaylor/html2text v0.0.0-20180606194806-57d518f124b0
 	github.com/kr/pretty v0.1.0 // indirect
+	github.com/matcornic/hermes/v2 v2.0.2
 	github.com/mattn/go-runewidth v0.0.3 // indirect
 	github.com/olekukonko/tablewriter v0.0.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
@@ -23,8 +24,8 @@ require (
 	golang.org/x/sys v0.0.0-20190225065934-cc5685c2db12 // indirect
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	gopkg.in/yaml.v2 v2.2.1 // indirect
-	github.com/matcornic/hermes/v2 v2.0.2
 )
 
 replace gopkg.in/russross/blackfriday.v2 v2.0.1 => github.com/russross/blackfriday/v2 v2.0.1
+
 replace github.com/matcornic/hermes/v2 v2.0.2 => github.com/salsowelim/hermes/v2 v2.0.2
