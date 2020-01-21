@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/go-gomail/gomail"
-	"github.com/matcornic/hermes/v2"
+	"github.com/salsowelim/hermes/v2"
 	"golang.org/x/crypto/ssh/terminal"
 	"io/ioutil"
 	"net/mail"
@@ -51,7 +51,7 @@ func main() {
 	// Send emails only when requested
 	if sendEmails {
 		port, _ := strconv.Atoi(os.Getenv("HERMES_SMTP_PORT"))
-		password :=  os.Getenv("HERMES_SMTP_PASSWORD")
+		password := os.Getenv("HERMES_SMTP_PASSWORD")
 		SMTPUser := os.Getenv("HERMES_SMTP_USER")
 		if password == "" {
 			fmt.Printf("Enter SMTP password of '%s' account: ", SMTPUser)
@@ -59,12 +59,12 @@ func main() {
 			password = string(bytePassword)
 		}
 		smtpConfig := smtpAuthentication{
-			Server:  os.Getenv("HERMES_SMTP_SERVER"),
-			Port: port,
-			SenderEmail: os.Getenv("HERMES_SENDER_EMAIL"),
+			Server:         os.Getenv("HERMES_SMTP_SERVER"),
+			Port:           port,
+			SenderEmail:    os.Getenv("HERMES_SENDER_EMAIL"),
 			SenderIdentity: os.Getenv("HERMES_SENDER_IDENTITY"),
-			SMTPPassword: password,
-			SMTPUser: SMTPUser,
+			SMTPPassword:   password,
+			SMTPUser:       SMTPUser,
 		}
 		options := sendOptions{
 			To: os.Getenv("HERMES_TO"),
@@ -72,7 +72,7 @@ func main() {
 		for _, theme := range themes {
 			h.Theme = theme
 			for _, e := range examples {
-				options.Subject = "Testing Hermes - Theme "+h.Theme.Name() + " - Example " + e.Name()
+				options.Subject = "Testing Hermes - Theme " + h.Theme.Name() + " - Example " + e.Name()
 				fmt.Printf("Sending email '%s'...\n", options.Subject)
 				htmlBytes, err := ioutil.ReadFile(fmt.Sprintf("%v/%v.%v.html", h.Theme.Name(), h.Theme.Name(), e.Name()))
 				if err != nil {
@@ -82,7 +82,7 @@ func main() {
 				if err != nil {
 					panic(err)
 				}
-				err = send(smtpConfig, options,string(htmlBytes), string(txtBytes))
+				err = send(smtpConfig, options, string(htmlBytes), string(txtBytes))
 				if err != nil {
 					panic(err)
 				}
