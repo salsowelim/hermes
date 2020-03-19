@@ -439,8 +439,7 @@ func (dt *Default) HTMLTemplate() string {
                 <tr>
                   <td class="content-cell">
                     <p class="sub center">
-                      {{.Hermes.Product.Copyright}}
-                    </p>
+                       {{.Hermes.Product.Copyright}}{{ if (not (eq .Hermes.Product.UnsubscribeURL "")) }}<br><a href="{{.Hermes.Product.UnsubscribeURL}}">إلغاء الاشتراك</a><br>{{ end }}                    </p>
                   </td>
                 </tr>
               </table>
