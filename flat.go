@@ -296,7 +296,7 @@ func (dt *Flat) HTMLTemplate() string {
                 <!-- Body content -->
                 <tr>
                   <td class="content-cell">
-                    <h1>{{if .Email.Body.Title }}{{ .Email.Body.Title }}{{ else }}{{ .Email.Body.Greeting }} {{ .Email.Body.Name }},{{ end }}</h1>
+                    <h1>{{if .Email.Body.Title }}{{ .Email.Body.Title }}{{ else }}{{ .Email.Body.Greeting }} {{ .Email.Body.Name }}،{{ end }}</h1>
                     {{ with .Email.Body.Intros }}
                         {{ if gt (len .) 0 }}
                           {{ range $line := . }}
@@ -405,7 +405,7 @@ func (dt *Flat) HTMLTemplate() string {
                       {{ end }}
 
                     <p>
-                      {{.Email.Body.Signature}},
+                      {{.Email.Body.Signature}}،
                       <br />
                       {{.Hermes.Product.Name}}
                     </p>
@@ -415,12 +415,14 @@ func (dt *Flat) HTMLTemplate() string {
                         <table class="body-sub">
                           <tbody>
                               {{ range $action := . }}
+			       {{ if $action.Button.Text }}
                                 <tr>
                                   <td>
                                     <p class="sub">{{$.Hermes.Product.TroubleText | replace "{ACTION}" $action.Button.Text}}</p>
                                     <p class="sub"><a href="{{ $action.Button.Link }}">{{ $action.Button.Link }}</a></p>
                                   </td>
                                 </tr>
+			      {{ end }}
                               {{ end }}
                           </tbody>
                         </table>
@@ -437,8 +439,9 @@ func (dt *Flat) HTMLTemplate() string {
                 <tr>
                   <td class="content-cell">
                     <p class="sub center">
-                      {{.Hermes.Product.Copyright}}
-                    </p>
+		                            {{.Hermes.Product.Copyright}}{{ if (not (eq .Hermes.Product.UnsubscribeURL "")) }}<br><a href="{{.Hermes.Product.UnsubscribeURL}}">إلغاء الاشتراك</a><br>{{ end }}                  
+					    </p>
+                     
                   </td>
                 </tr>
               </table>
@@ -455,7 +458,7 @@ func (dt *Flat) HTMLTemplate() string {
 
 // PlainTextTemplate returns a Golang template that will generate an plain text email.
 func (dt *Flat) PlainTextTemplate() string {
-	return `<h2>{{if .Email.Body.Title }}{{ .Email.Body.Title }}{{ else }}{{ .Email.Body.Greeting }} {{ .Email.Body.Name }}{{ end }},</h2>
+	return `<h2>{{if .Email.Body.Title }}{{ .Email.Body.Title }}{{ else }}{{ .Email.Body.Greeting }} {{ .Email.Body.Name }}{{ end }}،</h2>
 {{ with .Email.Body.Intros }}
   {{ range $line := . }}
     <p>{{ $line }}</p>
@@ -513,7 +516,7 @@ func (dt *Flat) PlainTextTemplate() string {
     <p>{{ $line }}<p>
   {{ end }}
 {{ end }}
-<p>{{.Email.Body.Signature}},<br>{{.Hermes.Product.Name}} - {{.Hermes.Product.Link}}</p>
+<p>{{.Email.Body.Signature}}،<br>{{.Hermes.Product.Name}} - {{.Hermes.Product.Link}}</p>
 
 <p>{{.Hermes.Product.Copyright}}</p>
 `
